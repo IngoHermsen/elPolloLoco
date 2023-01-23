@@ -1,5 +1,5 @@
 'use strict'
 
-class EndBoss extends Enemy {
+class EndBoss extends MovableObject {
     
 }
