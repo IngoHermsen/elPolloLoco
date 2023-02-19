@@ -6,22 +6,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/3_enemies_chicken/chicken_normal/1_walk/1_w.png">
     <title>El Pollo Loco</title>
-    <script src="classes/movableObject.class.js"></script>
-    <script src="classes/landscapeObject.class.js"></script>
-    <script src="classes/character.class.js"></script>
-    <script src="classes/chicken.class.js"></script>
-    <script src="classes/cloud.class.js"></script>
-    <script src="classes/endboss.class.js"></script>
-    <script src="classes/keyboard.class.js"></script>
-    <script src="classes/world.class.js"></script>
+    <script src="models/drawableObject.class.js"></script>
+    <script src="models/endScreen.class.js"></script>
+    <script src="models/startScreen.class.js"></script>
+    <script src="models/statusbar.class.js"></script>
+    <script src="models/movableObject.class.js"></script>
+    <script src="models/enemy.class.js"></script>
+    <script src="models/landscapeObject.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/coin.class.js"></script>
+    <script src="models/bottle.class.js"></script>
+    <script src="models/bottleThrown.class.js"></script>
+    <script src="models/chicken.class.js"></script>
+    <script src="models/chickenSmall.class.js"></script>
+    <script src="models/cloud.class.js"></script>
+    <script src="models/endboss.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
+    <script src="models/world.class.js"></script>
+    <script src="models/indicator.class.js"></script>
+    <script src="js/images/animation_images.js"></script>
+    <script src="js/images/statusBar_images.js"></script>
+    <script src="js/audio/audio.js"></script>
     <script src="js/game.js"></script>
 
 </head>
 
 <body onload="init()">
-    <h1>El Pollo Loco</h1>
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div id="deviceOrientation"><div>Please rotate<br>your device!</div><img id="rotateImage" src="img/orientation_img/turn_2.png" alt=""></div>
+    <div id="canvasContainer">
+        <canvas id="canvas" width="720" height="480"></canvas>
+        <div id="textOverlay">
+            <div onclick="closeOverlay()" id="overlayBackground"></div>
+            <span onclick="closeOverlay()" class="close">Close X</span>
+            <div id="introText">Pepe is a good farmer who grew up in a small quiet village.
+                <br>
+                <br>One day his village is suddenly attacked by angry chicken that escaped from the village nearby. Save
+                Pepe's home and defeat the monster chicken.
+                <br><br>Walk with [A][D], jump with [W] or [Space] and throw bottles to your enemies with [E].
+            </div>
+        </div>
+
+
+        <div class="buttons" id="topButtons">
+            <div class="leftArea">
+            </div>
+            <div class="centerArea">
+                <button onclick="startGame()" type="button" id="playBtn">Play</button>
+            </div>
+            <div class="rightArea">
+                <button id="helpBtn" onclick="showOverlay()"><img src="img/buttons/help_btn.png" alt=""></button>
+                <button onclick="toggleMusic()" type="button" id="musicBtn"><img src="img/buttons/music_off.png"
+                        alt=""></button>
+            </div>
+        </div>
+        <div class="buttons" id="bottomButtons">
+            <div class="leftArea controlButtons">
+                <button type="button" id="walkLeftBtn"><img src="img/buttons/walkLeft_btn.png" alt=""></button>
+                <button type="button" id="walkRightBtn"><img src="img/buttons/walkRight_btn.png" alt=""></button>
+            </div>
+            <div class="centerArea" id="restart">
+                <h1 onclick="restart()">Try Again</h1>
+            </div>
+            <div class="rightArea controlButtons">
+                <button type="button" id="jumpBtn"><img src="img/buttons/jump_btn.png" alt=""></button>
+                <button type="button" id="throwBtn"><img src="img/buttons/throw_btn.png" alt=""></button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
