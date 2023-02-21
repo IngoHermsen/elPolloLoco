@@ -11,7 +11,6 @@ class DrawableObject {
 
     };
 
-
     createSingleImageObject(imagePath) {
         this.img = new Image();
         this.img.src = imagePath;

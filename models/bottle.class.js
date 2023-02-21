@@ -7,6 +7,7 @@ class Bottle extends MovableObject {
     world;
     randomImg = Math.ceil(Math.random() * 2);
 
+
     constructor(id, pos_x) {
         super().createSingleImageObject(`img/6_salsa_bottle/${this.randomImg}_salsa_bottle_on_ground.png`);
         this.width = 60;

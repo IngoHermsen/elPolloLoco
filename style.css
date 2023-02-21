@@ -117,6 +117,11 @@ button:hover {
     margin: 20px;
 }
 
+#restart:hover h1{
+    cursor: pointer;
+    font-weight: 300;
+}
+
 #deviceOrientation {
     position: absolute;
     display: none;

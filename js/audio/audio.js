@@ -1,4 +1,8 @@
 'use strict'
+/**
+ * This file contains audio objects for the different game elements.
+ * This allows to call the needed audio files in the code by categories. 
+ */
 
 let sounds = {
     character: {

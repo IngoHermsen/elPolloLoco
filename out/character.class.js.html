@@ -1,4 +1,32 @@
-'use strict'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: character.class.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: character.class.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
 
 class Character extends MovableObject {
     isActive = false;
@@ -21,9 +49,10 @@ class Character extends MovableObject {
     dealingDamage = 20;
 
     /**
-     * Sets the Character with all animation image objects and animation intervals.
+     * TEST Character Class Constructor
      * @constructor
      */
+
     constructor() {
         super().createSingleImageObject('img/2_character_pepe/1_idle/idle/I-1.png');
         this.createSeveralImageObjects(animationImg.character.idleAnimationImages);
@@ -34,21 +63,17 @@ class Character extends MovableObject {
         this.animations();
     };
 
-
+    /**
+     * walking animations for character
+     */
     animations() {
         sounds.character.walkingSound.volume = 0.4;
         sounds.character.walkingSound.pause();
 
-        /**
-         * This slower interval checks if character is dead and handles animations by
-         * monitoring which control buttons are pressed.
-         * Depending on the player is active to prevent keypressed events in the main menu.
-         * 
-         */
         let charInterval1 = setInterval(() => {
             if (this.isActive) {
 
-                if (this.health <= 0 && this.currentAnimationImage == animationImg.character.deadAnimationImages.length - 1) {
+                if (this.health &lt;= 0 &amp;&amp; this.currentAnimationImage == animationImg.character.deadAnimationImages.length - 1) {
                     this.isDead = true;
                 }
 
@@ -60,19 +85,19 @@ class Character extends MovableObject {
                     this.world.finishedGame = true;
                 }
 
-                if (this.health <= 0 && !this.isDead) {
+                if (this.health &lt;= 0 &amp;&amp; !this.isDead) {
                     this.playAnimation(animationImg.character.deadAnimationImages)
                 }
 
-                if (this.keyboard.keysPressed == 0 && !this.isNotOnGround() && !this.hurt && this.health > 0) {
+                if (this.keyboard.keysPressed == 0 &amp;&amp; !this.isNotOnGround() &amp;&amp; !this.hurt &amp;&amp; this.health > 0) {
                     this.playAnimation(animationImg.character.idleAnimationImages);
                 }
 
-                if ((this.keyboard.LEFT || this.keyboard.RIGHT) && !this.isNotOnGround() && this.health > 0) {
+                if ((this.keyboard.LEFT || this.keyboard.RIGHT) &amp;&amp; !this.isNotOnGround() &amp;&amp; this.health > 0) {
                     this.playAnimation(animationImg.character.walkAnimationImages);
                 }
 
-                if (this.isNotOnGround() && this.health > 0) {
+                if (this.isNotOnGround() &amp;&amp; this.health > 0) {
                     this.playAnimation(animationImg.character.jumpAnimationImages);
                 }
 
@@ -83,15 +108,13 @@ class Character extends MovableObject {
             }
         }
             , 100)
-
-        /**
-         * This faster interval checks collision states and moves characters image on x and y axis.
-         * Depends on which control buttons are pressed.
-         * 
-         */
-
+    
         let charInterval2 = setInterval(() => {
-
+            /**
+             * TEST2
+             * 
+             */
+ 
             if (this.isActive) {
 
                 this.checkCollisions();
@@ -102,16 +125,17 @@ class Character extends MovableObject {
                 if (this.world.adjustCamera)
                     this.adjustCamera();
 
-                if (this.keyboard.RIGHT && this.position_x < this.world.end && this.health > 0)
-                    this.setWalkDirectionLeft(false);
+                if (this.keyboard.RIGHT &amp;&amp; this.position_x &lt; this.world.end &amp;&amp; this.health > 0)
+                    this.setWalkDirection('right');
 
-                if (this.keyboard.LEFT && this.position_x > 0 && this.health > 0)
-                    this.setWalkDirectionLeft(true);
 
-                if (this.keyboard.UP && !this.isNotOnGround() && this.health > 0 & !this.isHurt)
+                if (this.keyboard.LEFT &amp;&amp; this.position_x > 0 &amp;&amp; this.health > 0)
+                    this.setWalkDirection('left');
+
+                if (this.keyboard.UP &amp;&amp; !this.isNotOnGround() &amp;&amp; this.health > 0 &amp; !this.isHurt)
                     this.distance_Y = 20;
 
-                if (this.keyboard.THROW && !this.isNotOnGround() && this.health > 0 && this.collectedBottles > 0)
+                if (this.keyboard.THROW &amp;&amp; !this.isNotOnGround() &amp;&amp; this.health > 0 &amp;&amp; this.collectedBottles > 0)
                     this.throwBottle();
 
                 if (this.isNotOnGround() || this.distance_Y > 0) {
@@ -135,21 +159,13 @@ class Character extends MovableObject {
         this.checkCollectableCollision();
     }
 
-    /**
-     * This function gets activated by a pressed direction button.
-     * Gets the direction character must be adjusted to and activates the adjust-camera interval function by boolean. 
-     * @param {boolean} direction contains if current direction is left or not (true or false).
-     */
-
-    setWalkDirectionLeft(directionBoolean) {
-        this.otherDirection = directionBoolean;
+    setWalkDirection(direction) {
+        this.otherDirection = (direction == 'right') ? false : true;
         this.changePositionX()
         this.world.adjustCamera = true;
     }
 
-    /**
-     * This function sets the position of the Character and moves backgrounds.
-     */
+
     changePositionX() {
         let speed = this.otherDirection ? -this.speed : this.speed;
         this.position_x += speed;
@@ -158,45 +174,38 @@ class Character extends MovableObject {
         if (!this.isNotOnGround()) sounds.character.walkingSound.play();
     };
 
-    /**
-     * This function adjusts the camera view as long as the minimum and maximum state values are not reached.
-     */
 
     adjustCamera() {
         let min = 200;
         let max = 320;
 
-        if (this.cameraMustMoveLeft(max)) {
-            this.world.cameraOffset += 10;
-
-        } else if (this.cameraMustMoveRight(min)) {
-            this.world.cameraOffset = this.world.cameraOffset - 10;
+        if (this.otherDirection &amp;&amp; this.position_x > 400) {
+            if (this.cameraMustMoveRight(max)) {
+                this.world.cameraOffset += 10;
+            } else {
+                this.world.adjustCamera = false;
+            }
         } else {
-            this.world.adjustCamera = false;
-        };
-
+            if (this.world.cameraOffset > min) {
+                console.log(this.world.cameraOffset)
+                this.world.cameraOffset = this.world.cameraOffset - 10;
+            } else { this.world.adjustCamera = false };
+        }
         this.world.camera_x = -this.position_x + this.world.cameraOffset;
     };
 
 
-    cameraMustMoveLeft(max) {
-        return (this.otherDirection && this.position_x > 400 && this.world.cameraOffset < max);
+    cameraMustMoveRight(max) {
+        return this.world.cameraOffset &lt; max
     };
 
-    cameraMustMoveRight(min) {
-        return (!this.otherDirection && this.world.cameraOffset > min);
-    }
 
-    /**
-     * This function makes several collision checks with all enemys.
-     * It gives damage to enemy if jumped on the from above.
-     */
     checkEnemyCollision() {
         this.world.collidableObjects.forEach((object) => {
-            if (this.isColliding(object) && (object instanceof Enemy) &&
-                object.health > 0 &&
-                this.isHurt == false && this.health > 0) {
-                if (this.isFallingFromAbove(object) && !(object instanceof EndBoss)) {
+            if (this.isColliding(object) &amp;&amp; (object instanceof Enemy) &amp;&amp;
+                object.health > 0 &amp;&amp;
+                this.isHurt == false &amp;&amp; this.health > 0) {
+                if (this.isFallingFromAbove(object) &amp;&amp; !(object instanceof EndBoss)) {
                     sounds.character.jumpOnChickenSound.play();
                     object.health = object.health - this.dealingDamage;
                     this.distance_Y = 15;
@@ -208,10 +217,6 @@ class Character extends MovableObject {
         })
     };
 
-    /**
-     * This function checks all collectable items for collision.
-     * If character collides the collect function is activated.
-     */
 
     checkCollectableCollision() {
         this.world.bottleObjects.forEach((object) => {
@@ -227,9 +232,6 @@ class Character extends MovableObject {
         })
     };
 
-    /**
-     * This function handles values and sounds for collected items.
-     */
 
     collect(object) {
         if (object instanceof Bottle) {
@@ -271,11 +273,11 @@ class Character extends MovableObject {
 
 
     checkIfBottleReachedGround(bottle) {
-        if (bottle.position_y >= 380 && !bottle.splash) {
+        if (bottle.position_y >= 380 &amp;&amp; !bottle.splash) {
             this.splash(bottle);
         } else {
             this.world.collidableObjects.forEach((enemy) => {
-                if (bottle.isColliding(enemy) && !bottle.splash) {
+                if (bottle.isColliding(enemy) &amp;&amp; !bottle.splash) {
                     enemy.health -= bottle.dealingDamage;
                     bottle.dealingDamage = 0;
                     this.isEndbossHit(enemy);
@@ -301,14 +303,14 @@ class Character extends MovableObject {
 
 
     isFallingFromAbove(object) {
-        return ((this.position_y + this.height) >= object.position_y && this.distance_Y < 0)
+        return ((this.position_y + this.height) >= object.position_y &amp;&amp; this.distance_Y &lt; 0)
     };
 
 
     checkCondition() {
         this.currentAnimationImage = 0;
         this.updateHealthBar();
-        if (this.health <= 0) {
+        if (this.health &lt;= 0) {
             this.health = 0;
         } else {
             sounds.character.ouchSound.play();
@@ -349,18 +351,37 @@ class Character extends MovableObject {
         })
     };
 
-    /**
-     * This function activates the end boss if the character is near enough. 
-     */
 
     discoverEndBoss() {
         let endBossPosition = this.world.endBoss.position_x;
         let distanceToEndBoss = endBossPosition - this.position_x;
-        if (!this.world.endBoss.isActive && distanceToEndBoss < 600) {
+        if (!this.world.endBoss.isActive &amp;&amp; distanceToEndBoss &lt; 600) {
             sounds.enemy.chickenScreamSound.play();
             this.world.endBoss.isActive = true;
             this.world.endBoss.updateHealthBar();
             this.world.endBoss.startMoving();
         }
     };
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Character.html">Character</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Feb 20 2023 17:54:15 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

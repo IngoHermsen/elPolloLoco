@@ -1,5 +1,9 @@
 'use strict'
 
+/**
+ * This file contains path-Arrays to the several health bar states for the character and the endboss.
+ */
+
 let statusBarImg = {
     character: {
         health: [

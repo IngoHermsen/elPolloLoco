@@ -26,7 +26,6 @@ class EndScreen extends DrawableObject {
         this.width = 720;
     };
 
-
     getImage() {
         let randomIndex;
         if (this.hasWon) {
