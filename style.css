@@ -1,0 +1,257 @@
+/* main */
+
+@font-face {
+    font-family: 'boogaloo';
+    src: url("./fonts/boogaloo/boogaloo-regular.ttf");
+}
+
+* {
+    font-family: 'boogaloo';
+    color: white;
+}
+
+
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(img/5_background/desert-5385998.png);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvasContainer {
+    position: relative;
+    height: 480px;
+    max-width: 720px;
+}
+
+canvas {
+    background-color: black;
+    display: block;
+}
+
+.buttons {
+    margin: unset;
+    position: absolute;
+    top: 10px;
+    display: flex;
+    width: 720px;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.buttons>div {
+    display: flex;
+    width: 150px;
+}
+
+.leftArea {
+    padding-left: 30px;
+    justify-content: left;
+}
+
+.centerArea {
+    justify-content: center;
+}
+
+.rightArea {
+    padding-right: 30px;
+    justify-content: right;
+}
+
+#topButtons {
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+button {
+    font-size: 35px;
+    outline: unset;
+    border: unset;
+    background-color: unset;
+    padding: unset;
+    user-select: none;
+}
+
+button img {
+    width: 60px;
+    height: 60px;
+}
+
+#playBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#bottomButtons {
+    opacity: 0.6;
+    top: unset;
+    bottom: 10px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controlButtons {
+    display: none;
+}
+
+#restart {
+    opacity: 1;
+    display: none;
+    user-select: none;
+}
+
+#restart h1{
+    font-weight: 200;
+    margin: 20px;
+}
+
+#restart:hover h1{
+    cursor: pointer;
+    font-weight: 300;
+}
+
+#deviceOrientation {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 45px;
+    background-color: orange;
+    color: rgb(138, 44, 44);
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 10;
+}
+
+#deviceOrientation img {
+    margin-top: 30px;
+    width: 100px;
+    height: 100px;
+}
+
+#textOverlay {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#overlayBackground {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+}
+
+#introText {
+    position: relative;
+    padding: 30px;
+    font-size: 25px;
+    background-color: orange;
+    width: 60%;
+    height: 60%;
+    color: rgb(138, 44, 44);
+    border: 1px solid rgb(138, 44, 44);
+    border-radius: 20px;
+    overflow-x: hidden;
+    resize: none;
+    user-select: none;
+}
+
+.close {
+    position: absolute;
+    font-size: 25px;
+    top: 20px;
+    right: 40px;
+    user-select: none;
+    z-index: 5;
+}
+
+.close:hover {
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 720px) {
+    .buttons {
+        width: 100vw;
+    }
+
+    #canvasContainer {
+        width: 100vw;
+    }
+
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .leftArea {
+        padding-left: 0px;
+        justify-content: left;
+    }
+
+    .rightArea {
+        padding-right: 0px;
+        justify-content: right;
+    }
+
+    #bottomButtons {
+        bottom: 0px;
+    }
+
+    #bottomButtons>div {
+        padding: 0px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+
+    button {
+        font-size: 30px;
+    }
+
+    button img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .rightArea {
+        padding: unset;
+        justify-content: center;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    #canvasContainer {
+        height: 100vh;
+    }
+
+    canvas {
+        height: 100vh;
+    }
+
+}
