@@ -92,7 +92,6 @@ class EndBoss extends Enemy {
 
 
     getHealthBarImage() {
-
         switch (true) {
             case (this.health > 160):
                 return 'img/7_statusbars/1_statusbar/2_statusbar_endboss/orange/100.png';

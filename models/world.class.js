@@ -43,8 +43,9 @@ class World {
     camera_x;
     showHitBoxes = false;
 
-    removeDeadEnemiesInterval;
-    spawnNewBottlesInterval;
+    intervals = [];
+    deadEnemiesInterval;
+    newBottlesInterval;
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -215,8 +216,18 @@ class World {
             object.clearAllIntervals();
         })
         this.endBoss.clearAllIntervals();
+
     };
 
+    clearIntervals() {
+        this.intervals.forEach((interval) => {
+            clearInterval(interval);
+            const index = this.intervals.indexOf(interval);
+            if (index > -1) {
+                this.intervals.splice(index, 1);
+            }
+        })
+    }
 
     drawSeveralObjects(objectArray) {
         objectArray.forEach(object => {
@@ -247,13 +258,13 @@ class World {
 
 
     drawHitBoxes(object) {
-            if (this.showHitBoxes && (object instanceof Character || object instanceof Enemy)) {
-                this.ctx.beginPath();
-                this.ctx.lineWidth = "1";
-                this.ctx.strokeStyle = "red";
-                this.ctx.rect(object.position_x, object.position_y, object.width, object.height);
-                this.ctx.stroke();
-            }
+        if (this.showHitBoxes && (object instanceof Character || object instanceof Enemy)) {
+            this.ctx.beginPath();
+            this.ctx.lineWidth = "1";
+            this.ctx.strokeStyle = "red";
+            this.ctx.rect(object.position_x, object.position_y, object.width, object.height);
+            this.ctx.stroke();
+        }
     };
 
 
@@ -295,12 +306,13 @@ class World {
                     this.collidableObjects.splice(i, 1);
                 }
             }
-        }, 15000)
+        }, 15000);
+        this.intervals.push(this.removeDeadEnemies)
     };
 
 
     spawnNewBottles() {
-        this.spawnNewBottlesInterval = setInterval(() => {
+        this.newBottlesInterval = setInterval(() => {
             let neededBottles = (this.endBoss.health - (this.character.collectedBottles * 15)) / 15
             if (this.endBoss.isActive && neededBottles > 0 &&
                 this.character.collectedBottles < 7 &&
@@ -309,5 +321,7 @@ class World {
                 this.createBottle(5)
             }
         }, 5000)
+        this.intervals.push(this.newBottlesInterval)
+
     };
 };

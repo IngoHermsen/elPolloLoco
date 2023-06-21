@@ -8,10 +8,12 @@ class Enemy extends MovableObject {
     isHurt = false;
     isDead = false;
 
+    walkInterval;
+
     animation(direction) {
         this.walkDirection(direction);
 
-        setInterval(() => {
+        this.walkInterval = setInterval(() => {
             if (this.health > 0) {
                 let i = this.currentAnimationImage % this.walkAnimationImages.length;
                 let path = this.walkAnimationImages[i];
@@ -25,6 +27,7 @@ class Enemy extends MovableObject {
                 this.isDead = true
             }
         }, 150);
+        this.intervals.push(this.walkInterval)
     };
 
 
