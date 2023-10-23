@@ -12,6 +12,7 @@ class ThrownBottle extends MovableObject {
 
     flyInterval;
     splashInterval;
+    
 
 
     constructor(pos_x, pos_y, direction) {
@@ -46,7 +47,6 @@ class ThrownBottle extends MovableObject {
             }
         }, 1000 / 30);
         this.intervals.push(this.flyInterval)
-        console.log('thrown bottles interval', this.intervals)
         
         
         /**
@@ -55,12 +55,13 @@ class ThrownBottle extends MovableObject {
          */
 
         this.splashInterval = setInterval(() => {
+            
             let splashAnimation = animationImg.bottle.splashAnimationImages
             if (!this.splash) {
                 this.playAnimation(animationImg.bottle.rotateAnimationImages);
             } else if (this.currentAnimationImage == splashAnimation.length) {
                 this.destroyed = true;
-                
+                clearInterval(this.splashInterval);
             } else {
                 this.playAnimation(splashAnimation);
             }

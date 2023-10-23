@@ -1,6 +1,7 @@
 'use strict'
 
 class EndBoss extends Enemy {
+
     width = 250;
     height = 300;
     position_x = 2650;

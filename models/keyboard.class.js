@@ -17,7 +17,6 @@ class Keyboard {
 
         document.addEventListener('keydown', this.handleKeyDownEvent.bind(this))
 
-
         this.keysUpEventListener = document.addEventListener('keyup', (e) => {
             if (e.code == "ArrowLeft" || e.code == "KeyA") {
                 this.LEFT = false;
@@ -107,7 +106,6 @@ class Keyboard {
         if ((e.code == "ArrowRight" || e.code == "KeyD") && !this.RIGHT) {
             this.RIGHT = true;
             this.keysPressed += 1;
-            console.log('key pressed');
         }
         if ((e.code == "ArrowUp" || e.code == "KeyW" || e.code == "Space") && !this.UP) {
             this.UP = true;
@@ -125,11 +123,8 @@ class Keyboard {
         }
     }
 
-
     removeEventListenerKeyDown() {  
-        console.log('passed remove function')
-        
-        removeEventListener('keydown', this.handleKeyDownEvent, false)
+            removeEventListener('keydown', this.handleKeyDownEvent, false)
     }
 
 

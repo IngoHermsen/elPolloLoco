@@ -24,6 +24,7 @@ class EndScreen extends DrawableObject {
         this.position_y = 0;
         this.height = 480;
         this.width = 720;
+        this.showRestartOption();
     };
 
     getImage() {
@@ -35,5 +36,11 @@ class EndScreen extends DrawableObject {
             randomIndex = Math.floor(Math.random() * this.lostImages.length);
             return this.lostImages[randomIndex];
         }
+    };
+
+
+    showRestartOption() {
+        let buttonElement = document.getElementById('restart');
+        buttonElement.style.display = 'inline';
     };
 }

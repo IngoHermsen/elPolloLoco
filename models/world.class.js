@@ -4,9 +4,11 @@ class World {
     startScreen = new StartScreen();
     startedGame = false;
     finishedGame = false;
-    endScreen = 'unset';
+    endScreen = null;
     character = new Character();
     endBoss = new EndBoss();
+
+    animationsStopped = false;
 
     collidableObjects = [
         this.endBoss,
@@ -68,6 +70,7 @@ class World {
         this.createCoin(15);
         this.spawnNewBottles();
         this.removeDeadEnemies();
+
     };
 
 
@@ -140,26 +143,25 @@ class World {
 
 
     draw() {
-        if (!this.startedGame) {
-            this.drawStartScreen();
-        } else {
-            this.drawWorld();
-        }
+        this.ctx.translate(-this.camera_x, 0);
+        requestAnimationFrame(() => {
+            if (!this.startedGame) {
+                this.drawStartScreen();
+            } else {
+                this.drawWorld();
+            }
+        });
+
     };
 
 
     drawStartScreen() {
         this.drawSingleObject(this.startScreen);
-
-        this.ctx.translate(-this.camera_x, 0);
-        requestAnimationFrame(() => {
-            this.draw()
-        });
+        this.draw();
     };
 
 
     drawWorld() {
-        // this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
         this.ctx.font = "35px boogaloo";
         this.ctx.fillStyle = "white";
@@ -173,7 +175,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         requestAnimationFrame(() => {
-            this.draw()
+            this.drawWorld();
         });
     };
 
@@ -193,41 +195,30 @@ class World {
 
     checkGameState() {
         if (this.character.isDead || this.endBoss.isDead) {
-            this.stopAllAnimations();
             let screen_pos_x = this.character.position_x - this.cameraOffset;
-            if (this.endScreen == 'unset') {
+            this.stopAllAnimations();
+            if (this.endScreen == null) {
                 this.endScreen = new EndScreen(this.endBoss.isDead ? true : false, screen_pos_x);
             }
             this.drawSingleObject(this.endScreen);
-            this.showRestartOption();
+            // this.showRestartOption();
         }
     };
 
 
-    showRestartOption() {
-        let buttonElement = document.getElementById('restart');
-        buttonElement.style.display = 'inline';
-    };
-
-
     stopAllAnimations() {
-        this.character.clearAllIntervals();
-        this.collidableObjects.forEach((object) => {
-            object.clearAllIntervals();
-        })
-        this.endBoss.clearAllIntervals();
-
+        if (!this.animationsStopped) {
+            this.character.clearAllIntervals();
+            this.collidableObjects.forEach((object) => {
+                object.clearAllIntervals();
+            })
+            this.endBoss.clearAllIntervals();
+            this.clouds.forEach((object) => {
+                object.clearAllIntervals();
+            })
+        }
+        this.animationsStopped = true;
     };
-
-    clearIntervals() {
-        this.intervals.forEach((interval) => {
-            clearInterval(interval);
-            const index = this.intervals.indexOf(interval);
-            if (index > -1) {
-                this.intervals.splice(index, 1);
-            }
-        })
-    }
 
     drawSeveralObjects(objectArray) {
         objectArray.forEach(object => {
@@ -322,6 +313,5 @@ class World {
             }
         }, 5000)
         this.intervals.push(this.newBottlesInterval)
-
     };
 };

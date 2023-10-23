@@ -12,6 +12,7 @@ function init() {
     checkDeviceOrientation();
     canvas = document.getElementById('canvas');
     world = new World(canvas);
+
     setContainerHeight();
     mainMusic = music.mainMusic;
     mainMusic.volume = 0.4;
@@ -101,11 +102,6 @@ function toggleMusic() {
  */
 
 function reset() {
-    console.log('resetting');
-    world.character = new Character()
-    // world.character.keyboard.removeEventListenerKeyDown()
-    world.character.isDead = false;
-    world.endBoss.isDead = false;
     init();
 
     let buttonElement = document.getElementById('bottomButtons');
@@ -115,9 +111,11 @@ function reset() {
     buttonElement.style.display = 'none';
     playButton.style.display = 'none';
     restartButton.style.display = 'none';
+
 }
 
 function restart() {
+
     reset();
     startGame();
 }

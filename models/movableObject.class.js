@@ -35,6 +35,7 @@ class MovableObject extends DrawableObject {
     moveLeft() {
         let moveLeftInterval = setInterval(() => {
             this.position_x -= this.speed;
+
         }, 1000 / 60);
         this.intervals.push(moveLeftInterval)
     };
@@ -51,13 +52,8 @@ class MovableObject extends DrawableObject {
     clearAllIntervals() {
         this.intervals.forEach((interval) => {
             clearInterval(interval)
-            console.log('movableObject Intervals', this.intervals)
-            const index = this.intervals.indexOf(interval);
-            if (index > -1) {
-                this.intervals.splice(index, 1);
-            }
-        }
+         }
         )
-
+        this.intervals = [];
     }
 }
