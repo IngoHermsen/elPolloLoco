@@ -24,12 +24,12 @@ function init() {
  */
 function checkDeviceOrientation() {
     let portrait = window.matchMedia("(orientation: portrait)");
-    let deviceOrientationElement = document.getElementById('deviceOrientation')
+    let rotateScreenEl = document.getElementById('rotate-screen')
 
-    deviceOrientationElement.style.display = screen.availHeight > screen.availWidth ? 'flex' : 'none';
+    rotateScreenEl.style.display = screen.availHeight > screen.availWidth ? 'flex' : 'none';
 
-    portrait.addEventListener("change", function (e) {
-        deviceOrientationElement.style.display = e.matches ? 'flex' : 'none'
+    portrait.addEventListener("change", e => {
+        rotateScreenEl.style.display = e.matches ? 'flex' : 'none';
     })
 }
 

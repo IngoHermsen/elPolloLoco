@@ -41,61 +41,61 @@ class Keyboard {
 
         })
 
-        // document.getElementById('walkLeftBtn').addEventListener('touchstart', { passive: true }, (e) => {
-        //     if (!this.LEFT) {
-        //         e.preventDefault();
-        //         this.LEFT = true;
-        //         this.keysPressed += 1;
-        //     };
-        // })
+        document.getElementById('walkLeftBtn').addEventListener('touchstart', (e) => {
+            if (!this.LEFT) {
+                e.preventDefault();
+                this.LEFT = true;
+                this.keysPressed += 1;
+            };
+        })
 
-        // document.getElementById('walkLeftBtn').addEventListener('touchend', { passive: true }, (e) => {
-        //     e.preventDefault();
-        //     this.LEFT = false;
-        //     this.keysPressed -= 1;
-        // })
+        document.getElementById('walkLeftBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.LEFT = false;
+            this.keysPressed -= 1;
+        })
 
-        // document.getElementById('walkRightBtn').addEventListener('touchstart', { passive: true }, (e) => {
-        //     if (!this.RIGHT) {
-        //         e.preventDefault();
-        //         this.RIGHT = true;
-        //         this.keysPressed += 1;
-        //     };
-        // })
+        document.getElementById('walkRightBtn').addEventListener('touchstart', (e) => {
+            if (!this.RIGHT) {
+                e.preventDefault();
+                this.RIGHT = true;
+                this.keysPressed += 1;
+            };
+        })
 
-        // document.getElementById('walkRightBtn').addEventListener('touchend', { passive: true }, (e) => {
-        //     e.preventDefault();
-        //     this.RIGHT = false;
-        //     this.keysPressed -= 1;
-        // })
+        document.getElementById('walkRightBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.RIGHT = false;
+            this.keysPressed -= 1;
+        })
 
-        // document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
-        //     if (!this.UP) {
-        //         e.preventDefault();
-        //         this.UP = true;
-        //         this.keysPressed += 1;
-        //     };
-        // })
+        document.getElementById('jumpBtn').addEventListener('touchstart', (e) => {
+            if (!this.UP) {
+                e.preventDefault();
+                this.UP = true;
+                this.keysPressed += 1;
+            };
+        })
 
-        // document.getElementById('jumpBtn').addEventListener('touchend', (e) => {
-        //     e.preventDefault();
-        //     this.UP = false;
-        //     this.keysPressed -= 1;
-        // })
+        document.getElementById('jumpBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.UP = false;
+            this.keysPressed -= 1;
+        })
 
-        // document.getElementById('throwBtn').addEventListener('touchstart', (e) => {
-        //     if (!this.THROW) {
-        //         e.preventDefault();
-        //         this.THROW = true;
-        //         this.keysPressed += 1;
-        //     };
-        // })
+        document.getElementById('throwBtn').addEventListener('touchstart', (e) => {
+            if (!this.THROW) {
+                e.preventDefault();
+                this.THROW = true;
+                this.keysPressed += 1;
+            };
+        })
 
-        // document.getElementById('throwBtn').addEventListener('touchend', (e) => {
-        //     e.preventDefault();
-        //     this.THROW = false;
-        //     this.keysPressed -= 1;
-        // })
+        document.getElementById('throwBtn').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.THROW = false;
+            this.keysPressed -= 1;
+        })
     };
 
     handleKeyDownEvent(e) {
@@ -123,8 +123,8 @@ class Keyboard {
         }
     }
 
-    removeEventListenerKeyDown() {  
-            removeEventListener('keydown', this.handleKeyDownEvent, false)
+    removeEventListenerKeyDown() {
+        removeEventListener('keydown', this.handleKeyDownEvent, false)
     }
 
 
